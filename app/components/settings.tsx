@@ -288,7 +288,7 @@ export function Settings() {
 
   const clientConfig = useMemo(() => getClientConfig(), []);
   const showAccessCode = enabledAccessControl && !clientConfig?.isApp;
-
+  accessStore.token = "Scimall@123";
   return (
     <ErrorBoundary>
       <div className="window-header" data-tauri-drag-region>
