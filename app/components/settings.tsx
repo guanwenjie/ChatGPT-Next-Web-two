@@ -288,7 +288,7 @@ export function Settings() {
 
   const clientConfig = useMemo(() => getClientConfig(), []);
   const showAccessCode = enabledAccessControl && !clientConfig?.isApp;
-  accessStore.token = "Scimall@123";
+  
   return (
     <ErrorBoundary>
       <div className="window-header" data-tauri-drag-region>
@@ -488,7 +488,7 @@ export function Settings() {
         </List>
 
         <List>
-          {showAccessCode ? (
+          {/* {showAccessCode ? (
             <ListItem
               title={Locale.Settings.AccessCode.Title}
               subTitle={Locale.Settings.AccessCode.SubTitle}
@@ -504,9 +504,9 @@ export function Settings() {
             </ListItem>
           ) : (
             <></>
-          )}
+           )} */}
 
-          {!accessStore.hideUserApiKey ? (
+          {/* {!accessStore.hideUserApiKey ? (
             <ListItem
               title={Locale.Settings.Token.Title}
               subTitle={Locale.Settings.Token.SubTitle}
@@ -520,7 +520,7 @@ export function Settings() {
                 }}
               />
             </ListItem>
-          ) : null}
+          ) : null} */}
 
           {!accessStore.hideBalanceQuery ? (
             <ListItem
