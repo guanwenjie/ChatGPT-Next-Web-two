@@ -33,9 +33,9 @@ export const useAccessStore = create<AccessControlStore>()(
   persist(
     (set, get) => ({
       token: "",
-      accessCode: "",
-      needCode: true,
-      hideUserApiKey: false,
+      accessCode: "Scimall@123",
+      needCode: false,
+      hideUserApiKey: true,
       openaiUrl: DEFAULT_OPENAI_URL,
       hideBalanceQuery: false,
 
