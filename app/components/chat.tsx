@@ -407,7 +407,7 @@ export function ChatActions(props: {
           icon={<StopIcon />}
         />
       )}
-      {!props.hitBottom && (
+      {/* {!props.hitBottom && (
         <ChatAction
           onClick={props.scrollToBottom}
           text={Locale.Chat.InputActions.ToBottom}
@@ -420,7 +420,7 @@ export function ChatActions(props: {
           text={Locale.Chat.InputActions.Settings}
           icon={<SettingsIcon />}
         />
-      )}
+      )} */}
 
       <ChatAction
         onClick={nextTheme}
@@ -829,7 +829,7 @@ export function Chat() {
               />
             </div>
           )}
-          <div className="window-action-button">
+          {/* <div className="window-action-button">
             <IconButton
               icon={<ExportIcon />}
               bordered
@@ -838,7 +838,7 @@ export function Chat() {
                 setShowExport(true);
               }}
             />
-          </div>
+          </div> */}
           {showMaxIcon && (
             <div className="window-action-button">
               <IconButton
