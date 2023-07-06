@@ -122,19 +122,18 @@ function Screen() {
       : "wx6d9737cf9aebba69";
 
   const isMobileScreen = useMobileScreen();
-  const [isUser, setIsUser] = useState(access.token ? true : false);
+  
+  
 
   const access = useAccessStore();
+  const [isUser, setIsUser] = useState(access.token ? true : false);
   const search = document.location.search || location.search;
   const query = qs.parse(search.substr(1));
   const { url, ajaxUrl } = domain(document.location);
 
-
   useEffect(() => {
     if (query.state && query.state == "1" && query.code) {
       access.updateToken(query.state + "");
-      
-
       fetch(`${url}/wx/weLogin?code=${query.code}&wxNum=24`, {
         method: "get",
       })
@@ -151,10 +150,9 @@ function Screen() {
         document.location.origin,
       )}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`;
     }
-
-
     loadAsyncGoogleFont();
   }, []);
+  
 
   return (
     <div
