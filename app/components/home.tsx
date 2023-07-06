@@ -30,7 +30,6 @@ import { domain } from "../utils/domain";
 
 import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
-import qs from "qs";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
