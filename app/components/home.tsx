@@ -131,8 +131,8 @@ function Screen() {
 
 
   useEffect(() => {
-    if (query.status && query.status == "1" && query.code) {
-      access.updateToken(query.status + "");
+    if (query.state && query.state == "1" && query.code) {
+      access.updateToken(query.state + "");
       fetch(`${url}/wx/weLogin?code=${query.code}`, {
         method: "get",
       })
@@ -143,10 +143,10 @@ function Screen() {
           }
         });
     }
-    if (!access.token) {
+    if (!access.token && !query.state) {
       access.updateToken("");
       document.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(
-        document.location.href,
+        document.location.origin,
       )}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`;
     }
 
