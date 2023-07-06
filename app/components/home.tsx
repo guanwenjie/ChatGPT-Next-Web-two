@@ -23,6 +23,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import qs from "qs";
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
 import { useAccessStore } from "../store";
