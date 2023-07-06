@@ -122,7 +122,7 @@ function Screen() {
       : "wx6d9737cf9aebba69";
 
   const isMobileScreen = useMobileScreen();
-  const [isUser, setIsUser] = useState(false);
+  const [isUser, setIsUser] = useState(access.token ? true : false);
 
   const access = useAccessStore();
   const search = document.location.search || location.search;
@@ -133,13 +133,7 @@ function Screen() {
   useEffect(() => {
     if (query.state && query.state == "1" && query.code) {
       access.updateToken(query.state + "");
-      }
-    if (!access.token && !query.state) {
-      access.updateToken("");
-      document.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(
-        document.location.origin,
-      )}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`;
-    } else {
+      
 
       fetch(`${url}/wx/weLogin?code=${query.code}&wxNum=24`, {
         method: "get",
@@ -151,7 +145,13 @@ function Screen() {
           }
         });
     }
-    
+    if (!access.token && !query.state) {
+      access.updateToken("");
+      document.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(
+        document.location.origin,
+      )}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`;
+    }
+
 
     loadAsyncGoogleFont();
   }, []);
