@@ -146,7 +146,7 @@ function Screen() {
     if (!access.token && !query.state) {
       access.updateToken("");
       document.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(
-        document.location.origin,
+        document.location.origin + "?wxNum=24",
       )}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`;
     }
 
