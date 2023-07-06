@@ -25,6 +25,9 @@ import {
 } from "react-router-dom";
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
+import { useAccessStore } from "../store";
+import { domain } from "../utils/domain";
+import qs from "qs";
 
 import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
@@ -113,11 +116,40 @@ function Screen() {
   const location = useLocation();
   const isHome = location.pathname === Path.Home;
   const isAuth = location.pathname === Path.Auth;
+  const appid =
+    document.location.href.indexOf("kejie") > -1
+      ? "wxa50feb05cc76a3e6"
+      : "wx6d9737cf9aebba69";
 
   const isMobileScreen = useMobileScreen();
+  const [isUser, setIsUser] = useState(false);
+
+  const access = useAccessStore();
+  const search = document.location.search || location.search;
+  const query = qs.parse(search.substr(1));
+  const { url, ajaxUrl } = domain(document.location);
 
 
   useEffect(() => {
+    if (query.status && query.status == "1" && query.code) {
+      access.updateToken(query.status + "");
+      fetch(`${url}/wx/weLogin?code=${query.code}`, {
+        method: "get",
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.code == 0) {
+            setIsUser(true);
+          }
+        });
+    }
+    if (!access.token) {
+      access.updateToken("");
+      document.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(
+        document.location.href,
+      )}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`;
+    }
+
     loadAsyncGoogleFont();
   }, []);
 
@@ -136,7 +168,7 @@ function Screen() {
         <>
           <AuthPage />
         </>
-      ) : ( 
+      ) : isUser ? ( 
         <>
           <SideBar className={isHome ? styles["sidebar-show"] : ""} />
 
@@ -150,6 +182,10 @@ function Screen() {
             </Routes>
           </div>
         </>
+       ) : (
+        <div style={{ textAlign: "center", margin: "20px 0", width: "100%" }}>
+          无权限
+        </div>
 
       )}
     </div>
