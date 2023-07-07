@@ -151,6 +151,15 @@ export class ChatGPTApi implements LLMApi {
         clearTimeout(requestTimeoutId);
 
         const resJson = await res.json();
+        if (
+          resJson &&
+          resJson.error &&
+          resJson.error.code == "invalid_api_key"
+        ) {
+          useAccessStore.getState().updateToken("");
+          document.location.reload();
+        }
+
         const message = this.extractMessage(resJson);
         options.onFinish(message);
       }
